@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>현재시각</title>
+</head>
+<body>
+    <button>현재시각</button>
+    <script>
+        const btn = document.querySelector("button");
+        btn.addEventListener("click",clock);
+
+        function clock(){
+        const now = new Date();
+        alert("현재시각은" + now.getHours() + "시" + now.getMinutes() + "분 입니다");
+        }
+    </script>
+</body>
+</html>
