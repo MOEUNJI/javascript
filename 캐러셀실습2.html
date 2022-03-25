@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>캐러셀실습</title>
+    <style>
+        .main {
+            width: 1000px;
+            height: 500px;
+            margin: 0 auto;
+            border: 3px solid salmon;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .content-container {
+            width: 4000px;
+            height: 500px;
+            display: flex;
+            transition: 0.3s;
+        }
+        
+        .page1,
+        .page2,
+        .page3,
+        .page4 {
+            width: 1000px;
+            height: 500px;
+            box-sizing: border-box;
+            text-align: center;
+            line-height: 500px;
+            font-size: 100px;
+            color: #fff;
+        }
+
+        .btn-box {
+            width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn-box button {
+            width: 100px;
+            height: 50px;
+            background: salmon;
+            border: none;
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .page1{
+            background: rgb(248, 166, 157);
+        }
+        .page2{
+            background: rgb(245, 136, 124);
+        }
+        .page3{
+            background: rgb(253, 108, 92);
+        }
+        .page4{
+            background: rgb(247, 81, 63);
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="content-container">
+            <div class="page1">1</div>
+            <div class="page2">2</div>
+            <div class="page3">3</div>
+            <div class="page4">4</div>
+        </div>
+    </div>
+
+    <div class="btn-box">
+        <button>prev</button>
+        <button>next</button>
+    </div>
+
+    <script>
+        const main = document.querySelector(".main");
+        // 모든 아이템을 감싸는 div 를 골라옴
+        const btns = document.querySelector(".btn-box");
+
+        let index = 0;
+        // 
+
+        btns.children[0].addEventListener("click",prev);
+        btns.children[1].addEventListener("click",next);
+
+
+        function prev(){
+            if(index === 0){
+                // 위에 변수로 선언한 인덱스의 값이 0 과 같으면
+                index = 3;
+                // 인덱스에 3 을 대입한다
+                // 1번째 일때 prev 를 누르면 4번째로 가기 위함
+            }else{
+                index--;
+                // 아닐경우엔 인덱스는 하나씩 줄어들음
+                // ex) 4번째에서 prev 버튼을 누르면 3번째로 가기위함
+            }
+            console.log(index);
+            main.children[0].style.transform = 'translateX(-' + (index*1000)+ 'px)';
+            // main.children[0] = content-container 를 뜻함 모든 페이지를 포함하고 있는 content-container 에게 스타일 트랜스폼을 줘서 인덱스의 *1000 만큼 이동시켜주겠다는 뜻 ex)1000*3 = 3000px 만큼 이동해서 4번째 page가 보이게 된다.
+        }
+
+        function next(){
+            if(index === 3){
+                // index의 값이 3과 같으면 
+                index = 0;
+                // next 를 눌렀을 때 인덱스에 0 을 대입한다(page4 에서 1page 로 가기 위함)
+            }else{
+                index++;
+                // index 가 3이 아닐경우에 index 는 1씩 증가한다.
+                // (ex: 2page일 때 next 를 누르면 3page가 된다.)
+            }
+            console.log(index);
+            main.children[0].style.transform = 'translateX(-' + (index*1000)+ 'px)';
+        }
+    </script>
+</body>
+</html>

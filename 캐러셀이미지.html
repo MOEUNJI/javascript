@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>캐러셀사진</title>
+    <style>
+        .container {
+            width: 700px;
+            height: 512px;
+            margin: 0 auto;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .all-box {
+            width: 2800px;
+            height: 512px;
+            display: flex;
+            transition: 0.3s;
+        }
+
+        .page1,
+        .page2,
+        .page3,
+        .page4 {
+            width: 700px;
+            height: 512px;
+        }
+
+        .btns {
+            width: 700px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .btns button {
+            width: 100px;
+            height: 50px;
+            font-size: 30px;
+            background: #000;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="all-box">
+            <div class="page1">
+                <img src="../image/캐러셀1.jpg" alt="">
+            </div>
+            <div class="page2">
+                <img src="../image/캐러셀2.jpg" alt="">
+            </div>
+            <div class="page3">
+                <img src="../image/캐러셀3.jpg" alt="">
+            </div>
+            <div class="page4">
+                <img src="../image/캐러셀4.jpg" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div class="btns">
+        <button>prev</button>
+        <button>next</button>
+    </div>
+
+    <script>
+        const container = document.querySelector(".container");
+        const btns = document.querySelector(".btns");
+
+        index = 0;
+
+        btns.children[0].addEventListener("click",prev);
+        btns.children[1].addEventListener("click",next);
+
+        function prev(){
+            if(index === 0){
+                index = 3;
+            }else{
+                index--;
+            }
+            console.log(index);
+            container.children[0].style.transform = 'translateX(-' + (index*700)+ 'px)';
+        }
+
+        function next(){
+            if(index === 3){
+                index = 0;
+            }else{
+                index++;
+            }
+            console.log(index);
+            container.children[0].style.transform = 'translateX(-' + (index*700)+ 'px)';
+        }
+    </script>
+</body>
+</html>

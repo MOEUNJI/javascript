@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>캐러셀</title>
+
+    <style>
+        .main {
+            width: 1000px;
+            height: 500px;
+            border: 3px solid salmon;
+            text-align: center;
+            font-size: 100px;
+            color: salmon;
+            line-height: 500px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .btn-box {
+            width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn-box button {
+            width: 100px;
+            height: 50px;
+            background: salmon;
+            border: none;
+            font-size: 30px;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="main"></div>
+    <div class="btn-box">
+        <button>prev</button>
+        <button>next</button>
+    </div>
+
+    <script>
+        const main = document.querySelector(".main");
+        const btns = document.querySelector(".btn-box");
+
+        let index = 1;
+
+        main.innerHTML = index;
+
+        btns.children[0].addEventListener("click",prev);
+        btns.children[1].addEventListener("click",next);
+
+        function prev(){
+            if(index === 1){
+                index = 4;
+            }else{
+                index--;
+            }
+            main.innerHTML = index;
+        }
+
+        function next(){
+            if(index === 4){
+                index = 1;
+            }else{
+                index++;
+            }
+            main.innerHTML = index;
+        }
+    </script>
+</body>
+</html>
