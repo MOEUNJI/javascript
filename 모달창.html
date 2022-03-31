@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모달창</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #00000020;
+        }
+
+        .modal-overlay {
+            width: 100%;
+            height: 100%;
+            background: #00000050;
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal { 
+            background: #fff;
+            width: 300px;
+            height: 300px;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 12px;
+            position: relative;
+        }
+
+        .modal h3 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .modal span {
+            display: block;
+            background: gray;
+            width: 16px;
+            height: 1px;
+        }
+
+        .close {
+            position: absolute;
+            right: 8px;
+            top: 16px;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .close:hover > span {
+            background: #000;
+            transition: 0.5s;
+        }
+
+        .close span:nth-child(1){
+            transform: rotate(45deg);
+        }
+
+        .close span:nth-child(2){
+            transform: rotate(-45deg);
+        }
+
+        
+    </style>
+</head>
+<body>
+    <p>quasi. Voluptas, sapiente officia eveniet velit eum ullam culpa molestiae quibusdam perferendis quas dolore quis eius illum.aliquid at quasi. Voluptas, sapiente officia eveniet velit eum ullam culpa molestiae quibusdam perferendis quas dolore quis eius illum.aliquid at quasi. Voluptas, sapiente officia eveniet velit eum ullam culpa molestiae quibusdam perferendis quas dolore quis eius illum.aliquid at quasi. Voluptas, sapiente officia eveniet velit eum ullam culpa molestiae quibusdam perferendis quas dolore quis eius illum.aliquid at quasi. Voluptas, sapiente officia eveniet velit eum ullam culpa molestiae quibusdam perferendis quas dolore quis eius illum.aliquid at quasi. Voluptas, sapiente officia eveniet velit eum ullam culpa molestiae quibusdam perferendis quas dolore quis eius illum.quasi. Voluptas, sapiente officia eveniet velit eum ullam culpa molestiae quibusdam perferendis quas dolore quis eius illum.aliquid at quasi. Voluptas, sapiente officia eveniet velit eum ullam culpa molestiae quibusdam perferendis quas dolore quis eius illum.aliquid at quasi. Voluptas, sapiente officia eveniet velit eum ullam culpa molestiae quibusdam perferendis quas dolore quis eius illum.aliquid at quasi. Voluptas, sapiente officia eveniet velit eum ullam culpa molestiae quibusdam perferendis quas dolore quis eius illum.aliquid at quasi. Voluptas, sapiente officia eveniet velit eum ullam culpa molestiae quibusdam perferendis quas dolore quis eius illum.aliquid at quasi. Voluptas, sapiente officia eveniet velit eum ullam culpa molestiae quibusdam perferendis quas dolore quis eius illum.</p>
+    <button class="modal-btn">모달창 띄우기</button>
+    <div class="modal-overlay">
+        <div class="modal">
+            <div class="close">
+                <span></span>
+                <span></span>
+            </div>
+            <h3>모달창</h3>
+            <p>Lorem, ipsum dolor sit a met cons ect et ur adi p isi cin g el it. Iu re labor ios am  fu ga nihil am et aliquid? Pos si mus esse, rer um modi i ste, om nis ip sam expe dita face re ut fa ci li s distinct io nisi aut em moll iti a! Ip sa .</p> 
+        </div>
+    </div>
+
+    <script>
+        const modalBtn = document.querySelector('.modal-btn');   
+        // 모달창띄우기 버튼
+        const modalOverlay = document.querySelector('.modal-overlay');
+        // 브라우저 위에 띄워질때 모달창을 포함한 브라우저의 모든 공간 
+        const modalClose = document.querySelector('.close');
+        // 엑스버튼
+
+        modalBtn.addEventListener('click',modalOn);
+        modalClose.addEventListener('click',modalOff);
+        modalOff();
+        // 여기에 modalOff(); 를 써 준 이유는 처음 브라우저가 열렸을 때 모달오프를 해놓지 않으면 m 을 눌렀을 때 모달창이 열리지 않는다 그래서 아예 닫는다고 실행시켜놓는거임
+        modalOverlay.addEventListener('click',e => {
+            console.log(e.target);
+            // target = 클릭된 부분 
+            const target = e.target;
+            if(target.classList.contains('modal-overlay')){
+                // 클릭된 부분에 modal-overlay 클래스가 있으면 모달창을 끔
+                modalOff();
+            }
+        });
+
+        console.log(modalOverlay.style.display === 'flex');
+        window.addEventListener('keyup',e=>{
+            console.log(e.key === 'Escape');
+            if(modalOverlay.style.display === 'flex' && e.key === 'Escape')
+                modalOff();
+                // modalOverlay 의 스타일이 flex 일때 esc 키가 눌리면 모달창을 끔
+
+            if(modalOverlay.style.display === 'none' && (e.key === 'm' || e.key === 'M')){
+                modalOn();
+                // modalOverlay의 스타일이 none 이며 m 또는 M 키가 눌렸을 때 모달창을 켠다
+            }
+            })
+
+        console.log(modalOverlay.classList.contains('modal-overlay'));
+        
+        function modalOn(){
+            modalOverlay.style.display = 'flex';
+            // modalOverlay 에 display:flex 대입
+        }
+
+        function modalOff(){
+            modalOverlay.style.display = 'none';
+            // modalOverlay 에 display: none 대입
+        }
+
+    </script>
+</body>
+</html>
