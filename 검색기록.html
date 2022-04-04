@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>검색기록</title>
+    <style>
+        body {
+            background: salmon;
+        }
+
+        .container {
+            width: 500px;
+            height: 600px;
+            background: #fff;
+            text-align: center;
+            border: 3px solid rgb(252, 203, 198);
+        }
+
+        .input-box {
+            width: 500px;
+            display: flex;
+            margin: 0 auto;
+            height: 50px;
+            border-bottom: 3px solid salmon;
+            border-top: 3px solid salmon;
+        }
+
+        .text {
+            width: 80%;
+            outline: none;
+            border: none;
+        }
+
+        button {
+            margin: 0;
+            padding: 0;
+            width: 20%;
+            outline: none;
+            border: none;
+            background: salmon;
+            height: 55px;
+            margin-top: -2px;
+            color: #fff;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        .done {
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 15px;
+        }
+
+        p {
+            width: 400px;
+            text-align: left;
+            margin-left: 15px;
+        }
+
+        span {
+            color: red;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>오늘의 할일</h2>
+        <div class="input-box">
+            <input type="text" class="text">
+            <button class="search-space button">검색</button>
+        </div>
+        <ul class="search-history">
+    
+        </ul>
+    </div>   
+
+
+    <script>
+        const searchButton = document.querySelector('.search-space');
+        // 검색버튼을 불러옴
+        const searchContent = document.querySelector('.search-history');
+        // 검색버튼을 눌렀을 때 아래에 추가될 리스트(ul>li)의  ul을 불러옴 
+
+
+        searchButton.addEventListener('click',makeHistory);
+        // 검색버튼을 클릭했을 때 makeHistory 라는 함수가 실행된다.
+
+
+        function makeHistory(){
+            const text = document.querySelector('.text');
+            // text 에 html의 input 태그를 대입함
+            const newHistory = document.createElement('li');
+            // newHistory에 새로운 li태그를 만들어서 대입함
+            const inputNode = document.createElement('input');
+            // inputNode 에 input태그를 만들어서 대입해줌
+            const textNode = document.createTextNode(text.value);
+            // textNode 에 text 에 들어있는 value값을 대입함
+            // createTextNode()는 선택한 요소(text)에 텍스트(value)를 추가함
+            const pNode = document.createElement('p');
+            // pNode 에 p태그를 만들어서 대입함
+
+
+            inputNode.setAttribute('type','checkbox');
+            // input 의 속성값을 설정함
+            // setAttribute() = 지정된 요소의 속성값을 변경/설정함
+
+
+            inputNode.addEventListener('change',()=>{
+                // 체크박스로 속성을 설정해놓은 inputNode 에 체크박스에 상태가 변동이 있을 시에
+                if(inputNode.checked){
+                    // 만약 체크박스에 체크가 되었다면
+                    pNode.classList.add('done');
+                    // p태그에 미리 지정해둔 done을 가져다붙힘
+                }else {
+                    pNode.classList.remove('done');
+                    // 아닐경우에 done 을삭제함
+                }
+            })
+
+
+            newHistory.appendChild(inputNode);
+            // 새로운 li태그에 마지막에 체크박스 추가함
+            pNode.appendChild(textNode);
+            // input[text] 에 들어있는 value(사용자가 입력한 값)을 p 태그 마지막에 넣어줌
+            newHistory.appendChild(pNode);
+            // 사용자가 입력한 값이 들어있는 p 태그를 li의 마지막에 넣어줌 
+
+            
+            const delSpan = document.createElement('span');
+            // delSpan 에 span 태그 새로 만들어서 대입해줌
+            const delTextNode = document.createTextNode('삭제');
+            // delTextNode 에 '삭제' 라는 문자 텍스트를 넣어줌 
+
+
+            delSpan.appendChild(delTextNode);
+            // span 의 마지막에 '삭제' 넣어줌
+
+
+            newHistory.appendChild(delSpan);
+            // newHistory(li)의 마지막에 delSpan(삭제)넣어줌
+            searchContent.insertBefore(newHistory,searchContent.firstChild);
+            // searchContent(ul)의 firstChild(첫번째자식)로 newHistory(li)를 삽입한다.
+            // insertBefore = 부모노드.insertBefore(삽입 할 노드, 기준 점 노드);
+            text.value = '';
+            // 검색을 클릭해서 ul 의 첫번째에 li의 삽입이 끝나면 사용자가 입력하는 input 창의 텍스트는 빈칸으로 바뀜
+
+
+
+            delSpan.addEventListener('click',function(){
+                // '삭제'클릭했을 때
+                searchContent.removeChild(this.parentNode); 
+                // 삭제할 노드의 부모노드.removeChild(delSpan의parentNode(부모노드인 li)삭제)
+
+                // remove = 삭제할노드.remove()
+                // removeChild = 삭제할노드의 부모노드.removeChild(삭제할노드)
+            })
+        }
+
+        window.addEventListener('keyup',e =>{
+            if(e.key === 'Enter'){
+                makeHistory();
+            }
+        })
+    </script>
+</body>
+</html>
