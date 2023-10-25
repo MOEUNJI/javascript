@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>샤이닝모먼트 세로슬라이드</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    :root {
+    --back-color: #F3F3F3;
+    --text-color: #121212;
+    --white-text-color: #fdfdfd;
+}
+
+.hidden-text {
+    clip-path: inset(0px 0px 99.9% 99.9%);
+    overflow: hidden;
+    height: 1px;
+    width: 1px;
+    padding: 0;
+    border: 0;
+    top: 50%;
+    position: absolute;
+}
+    .main-slider {
+    width: 100%;
+}
+
+.container {
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+.slider1 {
+    transition: 1s;
+}
+
+.slider1-1 > img {
+    object-position: 70%;
+}
+
+.slider1-2 > img {
+    object-position: 5%;
+}
+
+.slider1-3 > img {
+    object-position: 55%;
+}
+
+.slider1 li {
+    overflow: hidden;
+    height: 100vh;
+}
+
+.slider1 > li > img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+
+
+.slider-text {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1200px;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.slider-text>header {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    color: var(--white-text-color);
+}
+
+.slider-main-text>h2 {
+    font-size: 80px;
+    color: var(--white-text-color);
+    display: inline-block;
+}
+
+.slider-main-text>span {
+    margin-left: 5px;
+    color: var(--white-text-color);
+    font-size: 24px;
+    font-family: 'Noto Sans KR';
+    font-weight: 400;
+}
+
+.slider-main-text>p {
+    color: var(--white-text-color);
+    font-size: 18px;
+    font-family: 'Noto Sans KR';
+    font-weight: 400;
+}
+
+.slider-down-text {
+    margin-top: 25px;
+}
+
+.dot-text {
+    height: 270px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 32px;
+    color: #787878;
+}
+
+.slide-button {
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.selected {
+    color: #ebebeb;
+}
+</style>
+<body>
+    <section class="main-slider">
+        <div class="slider-all-container">
+            <div class="container">
+                <ul class="slider1">
+                    <li class="slider1-1">
+                        <img src="/image/main1.jpg" alt="포토그래퍼">
+                    </li>
+                    <li class="slider1-2">
+                        <img src="/image/main2.jpg" alt="메이크업 아티스트 & 헤어디자이너">
+                    </li>
+                    <li class="slider1-3">
+                        <img src="/image/main3.jpg" alt="모델">
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="slider-text">
+            <header>
+                <h1>Shining Moment</h1>
+            </header>
+
+            <div class="slider-main-text">
+                <p>소중한 순간을 빛나게</p>
+                <h2>Shining Moment</h2><span>에서 선택하여 작업하세요.</span>
+                <p class="slider-down-text">개인의 재능이 모여 무한한 가능성으로</p>
+            </div>
+
+            <div class="dot-text">
+                <p class="slide-button selected">Photographer</p>
+                <p class="slide-button">Make-up artist&<br> Hair designer</p>
+                <p class="slide-button">Model</p>
+            </div>
+        </div>
+    </section>
+</body>
+
+<script>
+    const slideButtons = document.getElementsByClassName('slide-button');
+// dot 으로 사용할 text
+const slider1 = document.querySelector('.slider1');
+// 이미지들이 들어있는  ul
+
+
+
+    for (let i = 0 ; i < slideButtons.length ; i ++ ){
+    // i = 0 i가 dot 으로 사용할 text의 개수보다 작으면 i는 dot 의 개수만큼 증감식 실행
+        slideButtons[i].addEventListener('click', ()=> {
+        // 버튼으로 사용할 i 번째의 텍스트를 클릭하면
+
+            for (let j = 0 ; j < slideButtons.length ; j ++){
+                slideButtons[j].classList.remove('selected');
+                // 우선 모든 버튼에 들어있는 selected 를 지워준 후
+
+            }
+            slider1.style.transform = 'translateY(-'+ 100*i +'vh)';
+            // 모든 이미지를 포함하고 있어 width 가 큰 ul을 translate*클릭한 해당 사진 + vh 만큼 올려준다.
+            slideButtons[i].classList.add('selected');
+            // 클릭된 사진에 selected 색을 붙힘
+        })
+    }
+</script>
+</html>

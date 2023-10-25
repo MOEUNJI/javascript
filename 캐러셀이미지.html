@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,22 +12,28 @@
             height: 512px;
             margin: 0 auto;
             box-sizing: border-box;
-            overflow: hidden;
+            /* overflow: hidden; */
+        }
+
+        ul > li {
+            list-style: none;
         }
 
         .all-box {
-            width: 2800px;
+            /* width: 2800px; */
             height: 512px;
             display: flex;
             transition: 0.3s;
         }
 
-        .page1,
-        .page2,
-        .page3,
-        .page4 {
+        .img_box {
             width: 700px;
             height: 512px;
+        }
+
+        .img_box>img {
+            height: 512px;
+            width: 700px;
         }
 
         .btns {
@@ -35,7 +42,7 @@
             display: flex;
             justify-content: space-between;
         }
-        
+
         .btns button {
             width: 100px;
             height: 50px;
@@ -47,22 +54,20 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <div class="all-box">
-            <div class="page1">
-                <img src="../image/캐러셀1.jpg" alt="">
-            </div>
-            <div class="page2">
-                <img src="../image/캐러셀2.jpg" alt="">
-            </div>
-            <div class="page3">
-                <img src="../image/캐러셀3.jpg" alt="">
-            </div>
-            <div class="page4">
-                <img src="../image/캐러셀4.jpg" alt="">
-            </div>
-        </div>
+        <ul class="all-box">
+            <li class="img_box">
+                <img src="/image/main1.jpg" alt="">
+            </li>
+            <li class="img_box">
+                <img src="/image/main2.jpg" alt="">
+            </li>
+            <li class="img_box">
+                <img src="/image/main3.jpg" alt="">
+            </li>
+        </ul>
     </div>
 
     <div class="btns">
@@ -73,31 +78,55 @@
     <script>
         const container = document.querySelector(".container");
         const btns = document.querySelector(".btns");
+        const allBox = document.querySelector(".all-box");
+        const sliderWidth = 700;
 
-        index = 0;
+        // index = 0;
 
-        btns.children[0].addEventListener("click",prev);
-        btns.children[1].addEventListener("click",next);
+        btns.children[0].addEventListener("click", prev);
+        btns.children[1].addEventListener("click", next);
 
-        function prev(){
-            if(index === 0){
-                index = 3;
-            }else{
+                // html로 추가하지 않고 노드복사 ul의 첫번째 자식복사
+                const last = allBox.lastElementChild.cloneNode(true);
+        // html로 추가하지 않고 노드복사 ul의 마지막 자식복사
+
+        allBox.appendChild(first);
+        // 마지막에 첫번째 자식 복사한걸 넣어줌
+        allBox.insertBefore(last, allBox.firstElementChild);
+        // ul의 첫번재에 마지막 자식 복사한거 넣어줌 
+        // ex ) 0 1 2 3 4 5 6 = 5 1 2 3 4 5 1
+
+        allBox.style.width = allBox.childElementCount * sliderWidth + 'px';
+        // ul의 스타일(너비)를 = ul의 자식갯수(li갯수) * 1000(li 하나하나의 width)
+
+        let index = 1;
+        // 처음 브라우저를 열었을 때 보이는 슬라이더의 인덱스는 1이어야 하니까 1을 대입함
+
+
+        function prev() {
+            if (index === 0) {
+                index = 2;
+            } else {
                 index--;
             }
             console.log(index);
-            container.children[0].style.transform = 'translateX(-' + (index*700)+ 'px)';
+            container.children[0].style.transform = 'translateX(-' + (index * 700) + 'px)';
         }
 
-        function next(){
-            if(index === 3){
+        function next() {
+            if (index === 2) {
                 index = 0;
-            }else{
+            } else {
                 index++;
             }
             console.log(index);
-            container.children[0].style.transform = 'translateX(-' + (index*700)+ 'px)';
+            container.children[0].style.transform = 'translateX(-' + (index * 700) + 'px)';
         }
+
+        setInterval(() => {
+            next();
+        }, 3000);
     </script>
 </body>
+
 </html>
