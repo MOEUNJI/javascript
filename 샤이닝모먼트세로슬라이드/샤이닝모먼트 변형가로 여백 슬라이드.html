@@ -182,8 +182,6 @@ const sliderWidth = 1920;
         const sliderLength = slider1.childElementCount;
         //ul의 자식의 갯수
 
-
-
     for (let i = 0 ; i < slideButtons.length ; i ++ ){
     // i = 0 i가 dot 으로 사용할 text의 개수보다 작으면 i는 dot 의 개수만큼 증감식 실행
         slideButtons[i].addEventListener('click', ()=> {
@@ -194,7 +192,7 @@ const sliderWidth = 1920;
                 // 우선 모든 버튼에 들어있는 selected 를 지워준 후
 
             }
-            slider1.style.transform = 'translateX(-'+ 1000*i +'px)';
+            slider1.style.transform = 'translateX(-'+ 100*i +'vw)';
             // 모든 이미지를 포함하고 있어 width 가 큰 ul을 translate*클릭한 해당 사진 + vh 만큼 올려준다.
             slideButtons[i].classList.add('selected');
             // 클릭된 사진에 selected 색을 붙힘
