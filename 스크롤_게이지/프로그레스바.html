@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프로그레스 바</title>
+    <style>
+        .progress-bar {
+            margin: 10px auto;
+            width: 50%;
+            background-color: #ccc;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .progress {
+            height: 30px;
+            margin-bottom: 10px;
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            line-height: 30px;
+            transition: width 0.5s;
+            white-space:nowrap;
+        }
+
+        #increment-button {
+            margin: auto;
+            display: block;
+            padding: 10px 20%;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        #increment-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="progress-bar">
+            <div class="progress" id="dog-progress">강아지: 0%</div>
+            <div class="progress" id="cat-progress">고양이: 0%</div>
+            <div class="progress" id="squirrel-progress">다람쥐: 0%</div>
+        </div>
+        <button id="increment-button">증가</button>
+    </div>
+    
+    <script>
+        // 초기 백분율 값
+        const initialDogPercentage = 19;
+        const initialCatPercentage = 78;
+        const initialSquirrelPercentage = 3;
+
+        // 현재 백분율 값
+        let dogPercentage = 0;
+        let catPercentage = 0;
+        let squirrelPercentage = 0;
+
+        // 프로그레스 바 업데이트 함수
+        function updateProgressBar(id, percentage) {
+            const progressBar = document.getElementById(id);
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = id.charAt(0).toUpperCase() + id.slice(1) + ': ' + percentage + '%';
+        }
+
+        // 초기화
+        updateProgressBar('dog-progress', dogPercentage);
+        updateProgressBar('cat-progress', catPercentage);
+        updateProgressBar('squirrel-progress', squirrelPercentage);
+
+        // 버튼 클릭 시 백분율 초기값으로 증가
+        const incrementButton = document.getElementById('increment-button');
+        incrementButton.addEventListener('click', function () {
+            if (dogPercentage < 1) {
+                dogPercentage = initialDogPercentage;
+                updateProgressBar('dog-progress', dogPercentage);
+                catPercentage = initialCatPercentage;
+                updateProgressBar('cat-progress', catPercentage);
+                squirrelPercentage = initialSquirrelPercentage;
+                updateProgressBar('squirrel-progress', squirrelPercentage);
+            } else {
+                dogPercentage = 0;
+                catPercentage = 0;
+                squirrelPercentage = 0;
+                updateProgressBar('dog-progress', dogPercentage);
+                updateProgressBar('cat-progress', catPercentage);
+                updateProgressBar('squirrel-progress', squirrelPercentage);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -122,6 +122,10 @@
             console.log(index);
             main.children[0].style.transform = 'translateX(-' + (index*1000)+ 'px)';
         }
+
+        setInterval(()=>{
+            next();
+        },1000)
     </script>
 </body>
 </html>

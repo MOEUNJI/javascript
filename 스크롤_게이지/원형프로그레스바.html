@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #circleContainer {
+            position: relative;
+            width: 100px;
+            height: 100px;
+        }
+
+        #circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(blue 0%, blue var(--percent), transparent var(--percent), transparent 100%);
+            transform-origin: center;
+            transform: rotate(-90deg);
+        }
+
+        #percentText {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="circleContainer">
+        <div id="circle"></div>
+        <div id="percentText">80%</div>
+    </div>
+    <script>
+        var windowHeight = window.innerHeight;
+        var pageHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+
+        // 스크롤 이벤트 리스너 등록
+        window.addEventListener('scroll', function () {
+            // 현재 수직 스크롤 위치 가져오기
+            var scrollTop = window.scrollY;
+            var scrollPercent = (scrollTop / (pageHeight - windowHeight)) * 100; // 스크롤 위치의 백분율 계산
+
+            updateCircleProgress(scrollPercent);
+        });
+
+        function updateCircleProgress(percent) {
+            var circle = document.getElementById('circle');
+            var percentText = document.getElementById('percentText');
+
+            // --percent CSS 변수 설정
+            circle.style.setProperty('--percent', percent + '%');
+
+            // 퍼센트 텍스트 업데이트
+            percentText.innerText = Math.round(percent) + '%';
+        }
+    </script>
+</body>
+
+</html>
