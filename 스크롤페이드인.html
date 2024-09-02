@@ -1,102 +1,106 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>스크롤페이드인</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        body{
-            height: 3000px;
-        }
-
-        .content{
-            height: 50px;
-            text-align: center;
-            margin: 600px auto;
-            font-size: 100px;
-        }
-
-        .fade {
-            opacity: 0;
-            transition: 1s;
-        }
-
-        .to-top{
-            transform: translateY(-200px);
-        }
-
-        .to-bottom{
-            transform: translateY(200px);  
-        }
-
-        .to-left{
-            transform: translateX(-200px);
-        }
-
-        .to-right{
-            transform: translateX(200px);
-        }
-
-        .to-bottom-right{
-            transform: translate(200px,200px);
-        }
-
-        .in {
-            opacity: 1;
-            transform: none;
-        }
-
-    </style>
-</head>
-<body>
-    <h2 class="content fade to-top">안녕하세요</h2>
-    <h2 class="content fade to-bottom">저는 모은지입니다</h2>
-    <h2 class="content fade to-left">저는 23이며</h2>
-    <h2 class="content fade to-right">여자입니다</h2>
-    <h2 class="content fade to-bottom-right">감사합니다</h2>
-
-    <script>
-        const content = document.getElementsByClassName('content');
-        // 공통 클래스인 content 불러옴
-        window.addEventListener('scroll',()=>{
-            // 윈도우에 스크롤 했을 때
-            const winH = window.innerHeight;
-            // winH = 브라우저 위쪽에 잡다한거 빼고 콘텐츠가 표시되는 부분의 height만 대입함
-
-            for ( let i = 0 ; i < content.length ; i ++){   
-                // i 가 content 의 갯수보다 작으면 i는 content의 갯수만큼 증가함
-                const contentTop = content[i].getBoundingClientRect().top;
-                // i 번째에 있는 요소의 top으로부터의 거리를 계산해서 contentTop에 대입함
-
-//-------------- getBoundingClientRect()로 얻을 수 있는것들!!!---------------------
-                // top, bottom, left, right, width, height, x, y의 값이 출력됩니다.
-                // top or y - 화면 상단 부터 대상의 처음 위치 값
-                // bottom - 화면 상단 부터 대상의 끝 위치 값
-                // left or x - 화면 좌측 부터 대상의 처음 위치 값
-                // right - 화면 좌측 부터 대상의 끝 위치 값
-                // width - 대상의 길이
-                // height - 대상의 높이
-
-                
-                if(contentTop - winH < 0){
-                    // i번째에 있는 요소의 화면 상단 부터 대상의 처음 위치 값 - 브라우저에서 콘텐츠가 표시되는 부분의 height 한게 0 보다 작으면
-                    content[i].classList.add('in');
-                    // content 의  i 번째에 있는 요소에 in 을 붙여준다
-                }
-                if(contentTop - winH > 0){
-                    // i번째에 있는 요소의 화면 상단 부터 대상의 처음 위치 값-브라우저에서 콘텐츠가 표시되는 부분의 height 한게 0 보다 크면 
-                    content[i].classList.remove('in');
-                    // content 의 i 번째에 있는 요소에 in 을 제거해서 스크롤을 올렸다가 다시 내려도 다시 작동하게 함
-                }
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>스크롤페이드인</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
             }
-        })
 
-    </script>
-</body>
+            body {
+                height: 3000px;
+            }
+
+            .content-container {
+                width: 100%;
+                overflow: hidden;
+            }
+
+            .content {
+                height: 50px;
+                text-align: center;
+                margin: 600px auto;
+                font-size: 100px;
+            }
+
+            .fade {
+                opacity: 0;
+                transition: 1s;
+            }
+
+            .to-top {
+                transform: translateY(-200px);
+            }
+
+            .to-bottom {
+                transform: translateY(200px);
+            }
+
+            .to-left {
+                transform: translateX(-200px);
+            }
+
+            .to-right {
+                transform: translateX(200px);
+            }
+
+            .to-bottom-right {
+                transform: translate(200px, 200px);
+            }
+
+            .in {
+                opacity: 1;
+                transform: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="content-container">
+            <h2 class="content fade to-top">안녕하세요</h2>
+            <h2 class="content fade to-bottom">저는 모은지입니다</h2>
+            <h2 class="content fade to-left">저는 23이며</h2>
+            <h2 class="content fade to-right">여자입니다</h2>
+            <h2 class="content fade to-bottom-right">감사합니다</h2>
+        </div>
+
+        <script>
+            const content = document.getElementsByClassName("content");
+            // 공통 클래스인 content 불러옴
+            window.addEventListener("scroll", () => {
+                // 윈도우에 스크롤 했을 때
+                const winH = window.innerHeight;
+                // winH = 브라우저 위쪽에 잡다한거 빼고 콘텐츠가 표시되는 부분의 height만 대입함
+
+                for (let i = 0; i < content.length; i++) {
+                    // i 가 content 의 갯수보다 작으면 i는 content의 갯수만큼 증가함
+                    const contentTop = content[i].getBoundingClientRect().top;
+                    // i 번째에 있는 요소의 top으로부터의 거리를 계산해서 contentTop에 대입함
+
+                    //-------------- getBoundingClientRect()로 얻을 수 있는것들!!!---------------------
+                    // top, bottom, left, right, width, height, x, y의 값이 출력됩니다.
+                    // top or y - 화면 상단 부터 대상의 처음 위치 값
+                    // bottom - 화면 상단 부터 대상의 끝 위치 값
+                    // left or x - 화면 좌측 부터 대상의 처음 위치 값
+                    // right - 화면 좌측 부터 대상의 끝 위치 값
+                    // width - 대상의 길이
+                    // height - 대상의 높이
+
+                    if (contentTop - winH < 0) {
+                        // i번째에 있는 요소의 화면 상단 부터 대상의 처음 위치 값 - 브라우저에서 콘텐츠가 표시되는 부분의 height 한게 0 보다 작으면
+                        content[i].classList.add("in");
+                        // content 의  i 번째에 있는 요소에 in 을 붙여준다
+                    }
+                    if (contentTop - winH > 0) {
+                        // i번째에 있는 요소의 화면 상단 부터 대상의 처음 위치 값-브라우저에서 콘텐츠가 표시되는 부분의 height 한게 0 보다 크면
+                        content[i].classList.remove("in");
+                        // content 의 i 번째에 있는 요소에 in 을 제거해서 스크롤을 올렸다가 다시 내려도 다시 작동하게 함
+                    }
+                }
+            });
+        </script>
+    </body>
 </html>
